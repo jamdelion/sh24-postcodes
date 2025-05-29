@@ -93,3 +93,51 @@ export const validLambethResponse = {
     },
   },
 };
+
+export const mockIslingtonResponse = {
+    "status": 200,
+    "result": {
+        "postcode": "N1 1AA",
+        "quality": 5,
+        "eastings": 531651,
+        "northings": 184021,
+        "country": "England",
+        "nhs_ha": "London",
+        "longitude": -0.103053,
+        "latitude": 51.539746,
+        "european_electoral_region": "London",
+        "primary_care_trust": "Islington",
+        "region": "London",
+        "lsoa": "Islington 017E",
+        "msoa": "Islington 017",
+        "incode": "1AA",
+        "outcode": "N1",
+        "parliamentary_constituency": "Islington South and Finsbury",
+        "parliamentary_constituency_2024": "Islington South and Finsbury",
+        "admin_district": "Islington",
+        "parish": "Islington, unparished area",
+        "admin_county": null,
+        "date_of_introduction": "202209",
+        "admin_ward": "St Mary's & St James'",
+        "ced": null,
+        "ccg": "NHS North Central London",
+        "nuts": "Islington",
+        "pfa": "Metropolitan Police",
+        "codes": {
+            "admin_district": "E09000019",
+            "admin_county": "E99999999",
+            "admin_ward": "E05013710",
+            "parish": "E43000209",
+            "parliamentary_constituency": "E14001306",
+            "parliamentary_constituency_2024": "E14001306",
+            "ccg": "E38000240",
+            "ccg_id": "93C",
+            "ced": "E99999999",
+            "nuts": "TLI43",
+            "lsoa": "E01002792",
+            "msoa": "E02000570",
+            "lau2": "E09000019",
+            "pfa": "E23000001"
+        }
+    }
+}
