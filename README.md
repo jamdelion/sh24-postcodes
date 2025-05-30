@@ -12,8 +12,6 @@ A simple web app built with React, Vite and TypeScript to check if a UK postcode
 - Jest + React Testing Library for unit and integration tests
 - Cypress for end-to-end tests
 
----
-
 ## Getting Started
 
 ### Prerequisites
