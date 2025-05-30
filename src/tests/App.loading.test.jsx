@@ -11,9 +11,6 @@ vi.mock(import("../api/useQueryPostcodeLookup.js"), async (importOriginal) => {
     isLoading: true,
   };
 });
-afterEach(() => {
-  vi.clearAllMocks();
-});
 
 describe("when the data is loading", () => {
   it("displays a spinner", async () => {
@@ -27,6 +24,6 @@ describe("when the data is loading", () => {
     const submitButton = getByRole("button", { name: "Submit" });
     await userEvent.click(submitButton);
 
-    expect(await findByTestId("loading-spinner")).toBeInTheDocument();
+    expect(await findByTestId("loading-spinner")).toBeVisible();
   });
 });

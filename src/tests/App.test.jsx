@@ -16,8 +16,10 @@ describe("when the component renders", () => {
     const { getByLabelText } = renderWithQueryClient(<App />);
     expect(getByLabelText("Enter a postcode:")).toBeInTheDocument();
   });
-
-  // TODO: it should not display an error message
+  it("should not display an error message", () => {
+    const { queryByText } = renderWithQueryClient(<App />);
+    expect(queryByText(/Postcode not found/)).not.toBeInTheDocument();
+  });
 });
 
 describe.each([

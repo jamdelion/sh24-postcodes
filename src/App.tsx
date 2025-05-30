@@ -21,7 +21,7 @@ function App() {
     [postcode],
   );
 
-  const { data, isLoading, isError } = useQueryPostcodeLookup(
+  const { data, isLoading, isError, error } = useQueryPostcodeLookup(
     submittedPostcode,
     {
       enabled:
@@ -34,22 +34,31 @@ function App() {
   useEffect(() => {
     if (isLoading) return;
 
+    if (isError) {
+      setResult('⚠ Something went wrong. Please try again.')
+      if (error.message.includes('404')) {
+        setResult("⚠ Postcode not found. Please try again.");
+      }
+    }
+
     if (submittedPostcodeInAllowList) {
       setResult("The postcode is in the service area");
     }
 
-    if (data) {
-      const isInServiceArea =
-        data.status === 200 &&
-        REGIONS_IN_SERVICE_AREA.some((area) => data.result.lsoa.includes(area));
-
-      setResult(
-        isInServiceArea
-          ? "The postcode is in the service area"
-          : "Not in the service area",
-      );
+    if (!data) {
+      return;
     }
-  }, [data, isLoading, submittedPostcodeInAllowList]);
+
+    const isInServiceArea =
+    data.status === 200 &&
+    REGIONS_IN_SERVICE_AREA.some((area) => data.result.lsoa.includes(area));
+
+    setResult(
+      isInServiceArea
+        ? "The postcode is in the service area"
+        : "Not in the service area",
+    );
+  }, [data, isLoading, submittedPostcodeInAllowList, isError, error]);
 
   return (
     <>

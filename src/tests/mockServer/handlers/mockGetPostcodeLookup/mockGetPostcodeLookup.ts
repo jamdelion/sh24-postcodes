@@ -1,6 +1,11 @@
 import { http, HttpResponse } from "msw";
 import { POSTCODE_LOOKUP_BASE_URL } from "../../../../api/useQueryPostcodeLookup";
-import { mockIslingtonResponse, validLambethResponse, validSouthwarkResponse } from "./mockResponses";
+import {
+  mockIslingtonResponse,
+  notFoundResponse,
+  validLambethResponse,
+  validSouthwarkResponse,
+} from "./mockResponses";
 
 export const getWithSouthwarkData = http.get(
   `${POSTCODE_LOOKUP_BASE_URL}/SE1%207QD`,
@@ -23,4 +28,11 @@ export const getWithIslingtonData = http.get(
   },
 );
 
-// TODO: get with server-side error, get with 404
+export const getWith404 = http.get(
+  `${POSTCODE_LOOKUP_BASE_URL}/S1%201AX`,
+  () => {
+    return HttpResponse.json(notFoundResponse, { status: 404 });
+  },
+);
+
+// TODO: get with server-side error

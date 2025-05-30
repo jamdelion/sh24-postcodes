@@ -141,3 +141,5 @@ export const mockIslingtonResponse = {
         }
     }
 }
+
+export const notFoundResponse = {"status":404,"error":"Postcode not found"}
