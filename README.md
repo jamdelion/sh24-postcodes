@@ -17,7 +17,7 @@ A simple web app built with React, Vite and TypeScript to check if a UK postcode
 ### Prerequisites
 
 - Node.js v16 or later
-- npm or yarn
+- npm
 
 ### Installation
 
