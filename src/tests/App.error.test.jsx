@@ -1,14 +1,22 @@
+
 import React from "react";
 import userEvent from "@testing-library/user-event";
 import { expect } from "vitest";
 import App from "../App.js";
-import { MALFORMED_POSTCODE, renderWithQueryClient, SOUTHWARK_POSTCODE } from "./testUtils.js";
+import {
+  getWith404,
+  getWith500,
+} from "./mockServer/handlers/mockGetPostcodeLookup/mockGetPostcodeLookup.js";
 import server from "./mockServer/server.js";
-import { getWith404, getWith500 } from "./mockServer/handlers/mockGetPostcodeLookup/mockGetPostcodeLookup.js";
+import {
+  MALFORMED_POSTCODE,
+  renderWithQueryClient,
+  SOUTHWARK_POSTCODE,
+} from "./testUtils.js";
 
 describe("when the postcode does not exist", () => {
   it("displays an appropriate error message", async () => {
-    server.use(getWith404)
+    server.use(getWith404);
     const { getByLabelText, findByText, getByRole } = renderWithQueryClient(
       <App />,
     );
@@ -25,7 +33,7 @@ describe("when the postcode does not exist", () => {
 
 describe("when there is a server-side error", () => {
   it("displays an appropriate error message", async () => {
-    server.use(getWith500)
+    server.use(getWith500);
     const { getByLabelText, findByText, getByRole } = renderWithQueryClient(
       <App />,
     );
@@ -52,6 +60,8 @@ describe("when the user enters a malformed postcode", () => {
     const submitButton = getByRole("button", { name: "Submit" });
     await userEvent.click(submitButton);
 
-    expect(await findByText(/Please enter a valid UK postcode/)).toBeInTheDocument();
+    expect(
+      await findByText(/Please enter a valid UK postcode/),
+    ).toBeInTheDocument();
   });
 });
