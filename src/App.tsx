@@ -59,17 +59,29 @@ function App() {
           setSubmittedPostcode(postcode);
         }}
       >
-        <label htmlFor="postcode-field">Enter a postcode: </label>
-        <input
-          id="postcode-field"
-          value={postcode}
-          onChange={(event) => {
-            setSubmittedPostcode("");
-            setResult("Please enter a postcode above");
-            setPostcode(event.target.value);
-          }}
-        />
-        <button type="submit">Submit</button>
+        <div className="form-contents">
+          <label htmlFor="postcode-field">Enter a postcode: </label>
+          <input
+            id="postcode-field"
+            value={postcode}
+            onChange={(event) => {
+              setSubmittedPostcode("");
+              setResult("Please enter a postcode above");
+              setPostcode(event.target.value);
+            }}
+          />
+          <div className="button-group">
+            <button type="submit" disabled={isLoading}>
+              Submit
+            </button>
+
+            <div
+              className="spinner"
+              data-testid="loading-spinner"
+              style={{ visibility: isLoading ? "visible" : "hidden" }}
+            />
+          </div>
+        </div>
       </form>
       <p>{result}</p>
     </>
