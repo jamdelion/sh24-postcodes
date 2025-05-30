@@ -39,6 +39,12 @@ describe.each([
     postcode: "N1 1AA",
     result: "Not in the service area",
   },
+  {
+    origin: "the allow list",
+    mockApi: null,
+    postcode: "SH24 1AA",
+    result: "The postcode is in the service area",
+  },
 ])(
   "when the user submits a postcode from $origin",
   ({ mockApi, postcode, result }) => {
