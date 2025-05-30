@@ -2,15 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import useQueryPostcodeLookup from "./api/useQueryPostcodeLookup";
 import { isValidPostcode } from "./utils";
+import { POSTCODE_ALLOW_LIST, REGIONS_IN_SERVICE_AREA } from "./constants";
 
 function App() {
   const [postcode, setPostcode] = useState("");
   const [submittedPostcode, setSubmittedPostcode] = useState("");
   const [result, setResult] = useState("Please enter a postcode above");
-
-  const REGIONS_IN_SERVICE_AREA = ["Southwark", "Lambeth"];
-
-  const POSTCODE_ALLOW_LIST = ["SH24 1AA", "SH24 1AB"];
 
   const submittedPostcodeInAllowList = POSTCODE_ALLOW_LIST.includes(
     submittedPostcode.toUpperCase().trim(),

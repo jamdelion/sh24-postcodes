@@ -2,7 +2,7 @@ import React from "react";
 import userEvent from "@testing-library/user-event";
 import { expect, vi } from "vitest";
 import App from "../App.js";
-import { renderWithQueryClient } from "./testUtils.js";
+import { LAMBETH_POSTCODE, renderWithQueryClient } from "./testUtils.js";
 
 vi.mock(import("../api/useQueryPostcodeLookup.js"), async (importOriginal) => {
   const actual = await importOriginal();
@@ -19,7 +19,7 @@ describe("when the data is loading", () => {
     );
 
     const postcodeInput = getByLabelText("Enter a postcode:");
-    await userEvent.type(postcodeInput, "SE1 7QA");
+    await userEvent.type(postcodeInput, LAMBETH_POSTCODE);
 
     const submitButton = getByRole("button", { name: "Submit" });
     await userEvent.click(submitButton);
