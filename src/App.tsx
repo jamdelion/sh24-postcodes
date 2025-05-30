@@ -35,14 +35,14 @@ function App() {
     if (isLoading) return;
 
     if (isError) {
-      setResult('⚠ Something went wrong. Please try again.')
-      if (error.message.includes('404')) {
+      setResult("⚠ Something went wrong. Please try again.");
+      if (error.message.includes("404")) {
         setResult("⚠ Postcode not found. Please try again.");
       }
     }
 
     if (submittedPostcodeInAllowList) {
-      setResult("The postcode is in the service area");
+      setResult("✅ The postcode is in the service area");
     }
 
     if (!data) {
@@ -50,13 +50,13 @@ function App() {
     }
 
     const isInServiceArea =
-    data.status === 200 &&
-    REGIONS_IN_SERVICE_AREA.some((area) => data.result.lsoa.includes(area));
+      data.status === 200 &&
+      REGIONS_IN_SERVICE_AREA.some((area) => data.result.lsoa.includes(area));
 
     setResult(
       isInServiceArea
-        ? "The postcode is in the service area"
-        : "Not in the service area",
+        ? "✅ The postcode is in the service area"
+        : "👎 The postcode is not in the service area",
     );
   }, [data, isLoading, submittedPostcodeInAllowList, isError, error]);
 
@@ -65,7 +65,11 @@ function App() {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          setSubmittedPostcode(postcode);
+          if (searchTermIsValid) {
+            setSubmittedPostcode(postcode);
+          } else {
+            setResult("⚠ Please enter a valid UK postcode");
+          }
         }}
       >
         <div className="form-contents">

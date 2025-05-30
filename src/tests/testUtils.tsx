@@ -24,3 +24,5 @@ export const ISLINGTON_POSTCODE = "N1 1AA"
 export const NON_EXISTING_POSTCODE = "S1 1AX"
 
 export const ALLOW_LIST_POSTCODE = "SH24 1AA"
+
+export const MALFORMED_POSTCODE = "12 3HZ"
