@@ -20,63 +20,41 @@ describe("when the component renders", () => {
   // TODO: it should not display an error message
 });
 
-describe("when the user submits a postcode from Southwark", () => {
-  it("displays the positive result below", async () => {
-    server.use(getWithSouthwarkData);
-    const { getByLabelText, getByText, getByRole } = renderWithQueryClient(
-      <App />,
-    );
+describe.each([
+  {
+    origin: "Southwark",
+    mockApi: getWithSouthwarkData,
+    postcode: "SE1 7QD",
+    result: "The postcode is in the service area",
+  },
+  {
+    origin: "Lambeth",
+    mockApi: getWithLambethData,
+    postcode: "SE1 7QA",
+    result: "The postcode is in the service area",
+  },
+  {
+    origin: "outside the service area",
+    mockApi: getWithIslingtonData,
+    postcode: "N1 1AA",
+    result: "Not in the service area",
+  },
+])(
+  "when the user submits a postcode from $origin",
+  ({ mockApi, postcode, result }) => {
+    it("displays the result below", async () => {
+      server.use(mockApi);
+      const { getByLabelText, getByText, getByRole } = renderWithQueryClient(
+        <App />,
+      );
 
-    const postcodeInput = getByLabelText("Enter a postcode:");
-    await userEvent.type(postcodeInput, "SE1 7QD");
+      const postcodeInput = getByLabelText("Enter a postcode:");
+      await userEvent.type(postcodeInput, postcode);
 
-    const submitButton = getByRole("button", { name: "Submit" });
-    await userEvent.click(submitButton);
+      const submitButton = getByRole("button", { name: "Submit" });
+      await userEvent.click(submitButton);
 
-    await waitFor(() =>
-      expect(
-        getByText("The postcode is in the service area"),
-      ).toBeInTheDocument(),
-    );
-  });
-});
-
-describe("when the user submits a postcode from Lambeth", () => {
-  it("displays the positive result below", async () => {
-    server.use(getWithLambethData);
-    const { getByLabelText, getByText, getByRole } = renderWithQueryClient(
-      <App />,
-    );
-
-    const postcodeInput = getByLabelText("Enter a postcode:");
-    await userEvent.type(postcodeInput, "SE1 7QA");
-
-    const submitButton = getByRole("button", { name: "Submit" });
-    await userEvent.click(submitButton);
-
-    await waitFor(() =>
-      expect(
-        getByText("The postcode is in the service area"),
-      ).toBeInTheDocument(),
-    );
-  });
-});
-
-describe("when the user submits a postcode from outside the service area", () => {
-  it("displays the negative result below", async () => {
-    server.use(getWithIslingtonData);
-    const { getByLabelText, getByText, getByRole } = renderWithQueryClient(
-      <App />,
-    );
-
-    const postcodeInput = getByLabelText("Enter a postcode:");
-    await userEvent.type(postcodeInput, "N1 1AA");
-
-    const submitButton = getByRole("button", { name: "Submit" });
-    await userEvent.click(submitButton);
-
-    await waitFor(() =>
-      expect(getByText("Not in the service area")).toBeInTheDocument(),
-    );
-  });
-});
+      await waitFor(() => expect(getByText(result)).toBeInTheDocument());
+    });
+  },
+);
