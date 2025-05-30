@@ -32,13 +32,13 @@ npm install
 ```
 
 
-2. Running the app locally
+### Running the app locally
 
 ```bash
 npm run dev
 ```
 
-3. Run tests (unit and integration)
+### Run tests (unit and integration)
 
 ```bash
 npm run test
@@ -50,7 +50,7 @@ You can also run individual test files by adding a search term, e.g. to run the 
 npm run test postcode
 ```
 
-4. Run end-to-end tests
+### Run end-to-end tests
 
 ```bash
 npm run cypress:run
