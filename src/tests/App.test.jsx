@@ -9,7 +9,7 @@ import {
   getWithSouthwarkData,
 } from "./mockServer/handlers/mockGetPostcodeLookup/mockGetPostcodeLookup.js";
 import server from "./mockServer/server.js";
-import { renderWithQueryClient } from "./testUtils";
+import { ISLINGTON_POSTCODE, LAMBETH_POSTCODE, renderWithQueryClient, SOUTHWARK_POSTCODE, ALLOW_LIST_POSTCODE } from "./testUtils";
 
 describe("when the component renders", () => {
   it("displays a form field for postcode input", () => {
@@ -26,25 +26,25 @@ describe.each([
   {
     origin: "Southwark",
     mockApi: getWithSouthwarkData,
-    postcode: "SE1 7QD",
+    postcode: SOUTHWARK_POSTCODE,
     result: "The postcode is in the service area",
   },
   {
     origin: "Lambeth",
     mockApi: getWithLambethData,
-    postcode: "SE1 7QA",
+    postcode: LAMBETH_POSTCODE,
     result: "The postcode is in the service area",
   },
   {
     origin: "outside the service area",
     mockApi: getWithIslingtonData,
-    postcode: "N1 1AA",
+    postcode: ISLINGTON_POSTCODE,
     result: "Not in the service area",
   },
   {
     origin: "the allow list",
     mockApi: null,
-    postcode: "SH24 1AA",
+    postcode: ALLOW_LIST_POSTCODE,
     result: "The postcode is in the service area",
   },
 ])(

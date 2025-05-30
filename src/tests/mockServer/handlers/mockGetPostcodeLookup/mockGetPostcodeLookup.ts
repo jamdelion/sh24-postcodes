@@ -6,33 +6,43 @@ import {
   validLambethResponse,
   validSouthwarkResponse,
 } from "./mockResponses";
+import { ISLINGTON_POSTCODE, LAMBETH_POSTCODE, NON_EXISTING_POSTCODE, SOUTHWARK_POSTCODE } from "../../../testUtils";
 
 export const getWithSouthwarkData = http.get(
-  `${POSTCODE_LOOKUP_BASE_URL}/SE1%207QD`,
+  `${POSTCODE_LOOKUP_BASE_URL}/${encodeURIComponent(SOUTHWARK_POSTCODE)}`,
   () => {
     return HttpResponse.json(validSouthwarkResponse);
   },
 );
 
 export const getWithLambethData = http.get(
-  `${POSTCODE_LOOKUP_BASE_URL}/SE1%207QA`,
+  `${POSTCODE_LOOKUP_BASE_URL}/${encodeURIComponent(LAMBETH_POSTCODE)}`,
   () => {
     return HttpResponse.json(validLambethResponse);
   },
 );
 
 export const getWithIslingtonData = http.get(
-  `${POSTCODE_LOOKUP_BASE_URL}/N1%201AA`,
+  `${POSTCODE_LOOKUP_BASE_URL}/${encodeURIComponent(ISLINGTON_POSTCODE)}`,
   () => {
     return HttpResponse.json(mockIslingtonResponse);
   },
 );
 
 export const getWith404 = http.get(
-  `${POSTCODE_LOOKUP_BASE_URL}/S1%201AX`,
+  `${POSTCODE_LOOKUP_BASE_URL}/${encodeURIComponent(NON_EXISTING_POSTCODE)}`,
   () => {
     return HttpResponse.json(notFoundResponse, { status: 404 });
   },
 );
 
-// TODO: get with server-side error
+export const getWith500 = http.get(
+  `${POSTCODE_LOOKUP_BASE_URL}/${encodeURIComponent(SOUTHWARK_POSTCODE)}`,
+  () => {
+    return HttpResponse.json(
+      { status: 500, error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+);
+
